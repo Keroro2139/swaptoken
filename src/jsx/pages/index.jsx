@@ -120,7 +120,6 @@ function Homepage() {
         const busd = new Contract(addresses.busd, abis.erc20, defaultProvider);
         const busdWithSigner = busd.connect(signer);
         const busdamount = ethers.utils.parseUnits(data.usd_amount, 18);
-        console.log(busdamount)
         const swap = new Contract(addresses.swaptoken, abis.swaptoken, defaultProvider);
         const gas = swap.estimateGas.swap(busdamount, data.refAccount);
         //console.log(gas)
@@ -131,7 +130,6 @@ function Homepage() {
             swapWithSigner.swap(busdamount, data.refAccount, options);
         });
     }
-
 
     return (
         <>
@@ -165,7 +163,7 @@ function Homepage() {
                                                             <h6 className="mb-0"> Balance : {parseFloat(ethers.utils.formatEther(data)).toPrecision(4)} </h6>
                                                         )
                                                     }
-                                                    
+
                                                     if (error) {
                                                         console.log(error);
                                                     }
@@ -209,18 +207,18 @@ function Homepage() {
                                         <Async promiseFn={getAccount}>
                                             {({ data, error, isLoading }) => {
                                                 (() => isLoading ? console.log("Async getBalance isLoading") : null)();
-    
+
                                                 if (data) {
                                                     // setAcct(data)
-                                                        return (
-                                                            <div>
-                                                                <div className="d-flex justify-content-between mt-0 align-items-center">
-                                                                    <h6 className="mb-0">Account: {data}</h6>
-                                                                </div>
+                                                    return (
+                                                        <div>
+                                                            <div className="d-flex justify-content-between mt-0 align-items-center">
+                                                                <h6 className="mb-0">Account: {data}</h6>
                                                             </div>
-                                                        )
+                                                        </div>
+                                                    )
                                                 }
-                                                   
+
                                                 if (error) {
                                                     console.log(error);
                                                 }
@@ -244,7 +242,7 @@ function Homepage() {
                                 <ExternalLink href="https://app.swap.me">
                                     <button className="btn  btn-primary">Swap Now</button>
                                 </ExternalLink>
-                                <button onClick={() => clipboard.copy("https://buy.swap.me/?ref="+acct)} className="btn btn-outline-primary"> Copy Referal Link</button>
+                                <button onClick={() => clipboard.copy("https://buy.swap.me/?ref=" + acct)} className="btn btn-outline-primary"> Copy Referal Link</button>
 
                             </div>
 
@@ -253,10 +251,10 @@ function Homepage() {
                 </div>
             </div>
 
-    
+
             <Footer1 />
         </>
-            
+
     )
 
 }

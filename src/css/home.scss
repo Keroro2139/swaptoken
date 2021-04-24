@@ -1,0 +1,177 @@
+@import './colors.scss';
+
+#home-container {
+    width: 100%;
+    position: relative;
+    background: $gray-background;
+    padding: 80px 0;
+
+    @media (max-width: 1280px) {
+        padding: 80px 24px;
+    }
+
+    @media (max-width: 600px) {
+        padding: 80px 16px;
+    }
+
+    .home-playground {
+        width: 1280px;
+        margin: 0 auto;
+
+        display: flex;
+        display: -webkit-flex;
+        flex-direction: row;
+        -ms-flex-direction: row;
+        align-items: flex-start;
+
+        @media (max-width: 1440px) {
+            width: 1188px;
+        }
+
+        @media (max-width: 1366px) {
+            width: 1080px;
+        }
+
+        @media (max-width: 1280px) {
+            width: 100%;
+        }
+    }
+}
+
+.content-container {
+    width: calc(100% - 520px);
+    display: flex;
+    display: -webkit-flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    .info-container {
+        h1 {
+            font-size: 2.5rem;
+            line-height: 3.5rem;
+        }
+
+        p {
+            font-size: 1.25rem;
+            margin-top: 32px;
+            color: $gray;
+        }
+
+        .button-container {
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: row;
+            -ms-flex-direction: row;
+            align-items: center;
+            margin-top: 48px;
+
+            .margin-right {
+                margin-right: 16px;
+            }
+        }
+    }
+}
+
+.form-card-container {
+    min-width: 520px;
+    max-width: 520px;
+    background: $white;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+    border: 1px solid $border;
+    padding: 24px;
+
+    .label {
+        font-size: 1rem;
+        font-weight: 500;
+        color: $black;
+        margin: 0;
+        margin-bottom: 4px;
+
+        &.margin-top {
+            margin-top: 24px;
+        }
+    }
+
+    .address-text {
+        display: flex;
+        display: -webkit-flex;
+        flex-direction: row;
+        -ms-flex-direction: row;
+        align-items: center;
+        color: $black;
+        font-size: .875rem;
+        font-weight: 600;
+
+        i {
+            font-size: 1.125rem;
+            margin-right: 8px;
+        }
+    }
+
+    .get-swap-container {
+        display: flex;
+        display: -webkit-flex;
+        flex-direction: row;
+        -ms-flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+
+        font-size: 1rem;
+        font-weight: 400;
+        color: $black;
+        padding: 8px;
+    }
+
+    .submit-button {
+        width: 100%;
+        margin-top: 24px;
+    }
+}
+
+.crypto-input-container {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    -ms-flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    border: 2px solid $border;
+    border-radius: 6px;
+    padding: 12px 12px 12px 18px;
+    transition: border 150ms ease-in-out;
+
+    &.focused {
+        border-color: $primary;
+    }
+
+    .MuiIconButton-root {
+        margin-top: -4px;
+        height: 35px !important;
+        min-width: 35px !important;
+        max-width: 35px !important;
+    }
+}
+
+.crypto-symbol {
+    font-size: .875rem;
+    padding-left: 6px;
+}
+
+.crypto-input-icon {
+    width: 140px;
+}
+
+.crypto-input-send {
+    width: calc(100% - 35px);
+}
+
+.balance-container {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: flex-end;
+    font-size: .875rem;
+    font-weight: 500;
+    margin-top: 4px;
+}
