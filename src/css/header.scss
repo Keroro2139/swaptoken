@@ -6,6 +6,7 @@
     background: $white;
     border-bottom: 1px solid $border;
     padding: 0 60px;
+    transition: all 150ms ease-in-out;
 
     display: flex;
     display: -webkit-flex;
@@ -13,6 +14,18 @@
     -ms-flex-direction: row;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 960px) {
+        padding: 0 40px;
+    }
+
+    @media (max-width: 600px) {
+        padding: 0 24px;
+    }
+
+    @media (max-width: 480px) {
+        padding: 0 12px;
+    }
 
     &>.header-row {
         display: flex;

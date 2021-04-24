@@ -2,9 +2,10 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Async from 'react-async';
 import { ethers } from "ethers";
-import { useClipboard } from "use-clipboard-copy";
 import { Contract } from "@ethersproject/contracts";
 import { useForm } from "react-hook-form";
+import { Tooltip } from '@material-ui/core';
+import { useClipboard } from "use-clipboard-copy";
 
 import { addresses, abis } from "../../contracts";
 import InputRef from './InputRef';
@@ -20,15 +21,17 @@ export default function FormContainer() {
     const clipboard = useClipboard();
     const history = useHistory();
 
-    const { register, handleSubmit, control, getValues, setValue, watch, errors } = useForm();
+    const { handleSubmit, control, getValues, watch } = useForm();
     const [boloRate, setBoloRate] = React.useState('');
-    const [bolo, setBolo] = React.useState('');
     const [focused, setFocused] = React.useState(false);
+    const [copied, setCopied] = React.useState(false);
     const [currency, setCurrency] = React.useState({
         symbol: "USDT",
         name: "Tether",
         color: "#26a17b"
     });
+
+    watch('usd_amount');
 
     React.useEffect(() => {
         (async () => {
@@ -38,7 +41,7 @@ export default function FormContainer() {
                 const swap = new Contract(addresses.swaptoken, abis.swaptoken, provider);
                 const boloRate = await swap.rate();
                 setBoloRate(boloRate)
-                const { chainId } = await provider.getNetwork()
+                const { chainId } = await provider.getNetwork();
 
                 if (chainId !== 56) {
 
@@ -79,6 +82,15 @@ export default function FormContainer() {
         setFocused(false);
     };
 
+    const handleCopyAddress = (address) => {
+        setCopied(true);
+        clipboard.copy(address);
+
+        setTimeout(() => {
+            setCopied(false);
+        }, 1500);
+    };
+
     const handleChangeCurrency = (opt, newValue) => {
         if (newValue) {
             setCurrency(newValue);
@@ -102,8 +114,6 @@ export default function FormContainer() {
         });
     };
 
-
-    console.log(watch('usd_amount'));
     return (
         <div className='form-card-container'>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -122,7 +132,7 @@ export default function FormContainer() {
                                 <div className="balance-container">
                                     {`Balance: ${parseFloat(ethers.utils.formatEther(data)).toPrecision(4)}`}
                                 </div>
-                            )
+                            );
                         }
                     }}
                 </Async>
@@ -145,7 +155,8 @@ export default function FormContainer() {
                 </div>
 
                 <div className="get-swap-container">
-                    <div>{'Get'} <b>{getValues('usd_amount') ? parseFloat(getValues('usd_amount') * boloRate).toPrecision(4) : 0}</b> {'SWAP'}</div>
+                    <div>{'Get'}</div>
+                    <div><b>{getValues('usd_amount') ? parseFloat(getValues('usd_amount') * boloRate).toPrecision(4) : 0}</b> {'SWAP'}</div>
                 </div>
 
                 <Async promiseFn={getAccount}>
@@ -153,8 +164,17 @@ export default function FormContainer() {
                         (() => isLoading ? console.log("Async getBalance isLoading") : null)();
                         if (data) {
                             return (
-                                <div className='address-text'>
-                                    <i className='fas fa-address-book' /> {data}
+                                <div className="address-text-container">
+                                    <span>{'Account'}</span>
+                                    <div className='address-text'>
+                                        {data}
+                                    </div>
+                                    <Tooltip
+                                        arrow title={copied ? 'Copied' : 'Copy'}
+                                        placement='right'
+                                    >
+                                        <i className='fa fa-clipboard' onClick={() => handleCopyAddress(data)} />
+                                    </Tooltip>
                                 </div>
                             );
                         }

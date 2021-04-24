@@ -110,6 +110,7 @@ export default function CryptoInput({
                 getOptionLabel={(option) => option.symbol}
                 getOptionSelected={(option, value) => option.symbol === value.symbol}
                 ListboxComponent={ListboxComponent}
+                noOptionsText='No item.'
                 value={currency}
                 onChange={handleChangeCurrency}
                 renderOption={(option) => (
@@ -147,6 +148,7 @@ export default function CryptoInput({
                 control={control}
                 rules={{ required: true }}
                 props={{
+                    autoFocus: true,
                     type: 'number',
                     className: 'crypto-input-send',
                     placeholder: '0',
